@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>TestZeus Hercules Interface</title>
+</head>
+<body>
+    <div class="container">
+        <h1>TestZeus Hercules Interface</h1>
+        <form id="hercules-form">
+            <input type="text" name="data" placeholder="Enter query..." required />
+            <button type="submit">Submit</button>
+        </form>
+        <div id="response"></div>
+    </div>
+    <script>
+        document.getElementById('hercules-form').onsubmit = async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/query', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(result, null, 2);
+        };
+    </script>
+</body>
+</html>
